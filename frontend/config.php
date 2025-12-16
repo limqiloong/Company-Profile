@@ -23,6 +23,19 @@ try {
     exit;
 }
 
+// Paths & URLs
+define('BASE_PATH', dirname(__DIR__));          // filesystem path to project root
+define('ASSETS_PATH', BASE_PATH . '/assets');   // filesystem path to assets
+
+// Derive base URL from the current script location so it works when the site
+// runs from a subfolder (e.g., /frontend) or from the domain root (Vercel).
+$baseUrl = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+if ($baseUrl === '/' || $baseUrl === '\\' || $baseUrl === '.') {
+    $baseUrl = '';
+}
+define('BASE_URL', $baseUrl);
+define('ASSETS_URL', $baseUrl . '/../assets');  // resolves to correct root assets
+
 // Site configuration
 define('SITE_NAME', 'Golden Prosperous Group of Companies');
 define('SITE_NAME_CHINESE', '鑫鴻集團');

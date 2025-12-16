@@ -6,12 +6,12 @@
                     <div class="footer-logo">
                         <?php 
                         $logoPath = '';
-                        if (file_exists('assets/images/Logo.jpg')) {
-                            $logoPath = 'assets/images/Logo.jpg';
-                        } elseif (file_exists('assets/images/logo.jpg')) {
-                            $logoPath = 'assets/images/logo.jpg';
-                        } elseif (file_exists('assets/images/logo.png')) {
-                            $logoPath = 'assets/images/logo.png';
+                        if (file_exists(ASSETS_PATH . '/images/Logo.jpg')) {
+                            $logoPath = ASSETS_URL . '/images/Logo.jpg';
+                        } elseif (file_exists(ASSETS_PATH . '/images/logo.jpg')) {
+                            $logoPath = ASSETS_URL . '/images/logo.jpg';
+                        } elseif (file_exists(ASSETS_PATH . '/images/logo.png')) {
+                            $logoPath = ASSETS_URL . '/images/logo.png';
                         }
                         if ($logoPath): ?>
                             <img src="<?php echo $logoPath; ?>" alt="<?php echo SITE_NAME; ?>" class="footer-logo-img">
@@ -60,7 +60,7 @@
             </div>
         </div>
     </footer>
-    <script src="assets/js/script.js"></script>
+    <script src="<?php echo ASSETS_URL; ?>/js/script.js"></script>
 </body>
 </html>
 

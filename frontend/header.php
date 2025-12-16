@@ -6,7 +6,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title><?php echo isset($pageTitle) ? $pageTitle . ' - ' : ''; ?><?php echo SITE_NAME; ?></title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -18,12 +18,12 @@
                         <a href="index.php">
                             <?php 
                             $logoPath = '';
-                            if (file_exists('assets/images/Logo.jpg')) {
-                                $logoPath = 'assets/images/Logo.jpg';
-                            } elseif (file_exists('assets/images/logo.jpg')) {
-                                $logoPath = 'assets/images/logo.jpg';
-                            } elseif (file_exists('assets/images/logo.png')) {
-                                $logoPath = 'assets/images/logo.png';
+                            if (file_exists(ASSETS_PATH . '/images/Logo.jpg')) {
+                                $logoPath = ASSETS_URL . '/images/Logo.jpg';
+                            } elseif (file_exists(ASSETS_PATH . '/images/logo.jpg')) {
+                                $logoPath = ASSETS_URL . '/images/logo.jpg';
+                            } elseif (file_exists(ASSETS_PATH . '/images/logo.png')) {
+                                $logoPath = ASSETS_URL . '/images/logo.png';
                             }
                             if ($logoPath): ?>
                                 <img src="<?php echo $logoPath; ?>" alt="<?php echo SITE_NAME; ?>" class="logo-img">
