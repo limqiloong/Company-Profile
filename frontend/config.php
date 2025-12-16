@@ -1,18 +1,38 @@
 <?php
 // Database configuration (if needed)
 
-$host    = '127.0.0.1';    // or your hosting DB host, e.g. 127.0.0.1
-$db      = 'company';
-$user    = 'root';
-$pass    = '';
 $charset = 'utf8mb4';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+// Prefer environment variables (for Vercel/production), fall back to local defaults.
+$parsedUrl = getenv('DATABASE_URL') ? parse_url(getenv('DATABASE_URL')) : null;
+
+if ($parsedUrl && isset($parsedUrl['host'])) {
+    $host = $parsedUrl['host'] ?? '127.0.0.1';
+    $port = $parsedUrl['port'] ?? '3306';
+    $db   = isset($parsedUrl['path']) ? ltrim($parsedUrl['path'], '/') : 'company';
+    $user = $parsedUrl['user'] ?? 'root';
+    $pass = $parsedUrl['pass'] ?? '';
+} else {
+    $host = getenv('DB_HOST') ?: '127.0.0.1';
+    $port = getenv('DB_PORT') ?: '3306';
+    $db   = getenv('DB_NAME') ?: 'company';
+    $user = getenv('DB_USER') ?: 'root';
+    $pass = getenv('DB_PASS') ?: '';
+}
+
+$socket = getenv('DB_SOCKET');
+
+if ($socket) {
+    $dsn = "mysql:unix_socket={$socket};dbname={$db};charset={$charset}";
+} else {
+    $dsn = "mysql:host={$host};port={$port};dbname={$db};charset={$charset}";
+}
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // show errors
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // fetch as array
     PDO::ATTR_EMULATE_PREPARES   => false,                  // better security
+    PDO::ATTR_TIMEOUT            => 5,
 ];
 
 try {
